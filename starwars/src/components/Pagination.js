@@ -1,17 +1,18 @@
 import React from 'react';
+import { PaginationWrap, PaginationButton } from './styles';
 
 const Pagination = props => {
     const { config, handleNextPage, handlePreviousPage } = props;
 
     return (
-        <div className="pagination-wrap">
+        <PaginationWrap>
             {config.previous && (
-                <button onClick={handlePreviousPage}>Previous</button>
+                <PaginationButton onClick={handlePreviousPage}>Previous</PaginationButton>
             )}
             {config.next && (
-                <button onClick={handleNextPage}>Next</button>
+                <PaginationButton onClick={handleNextPage}>Next</PaginationButton>
             )}
-        </div>
+        </PaginationWrap>
     );
 };
 

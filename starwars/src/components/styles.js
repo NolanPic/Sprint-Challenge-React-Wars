@@ -25,8 +25,14 @@ export const Card = styled.div`
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 `;
 
-export const PaginationButton = styled.div`
+export const PaginationWrap = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;
+
+export const PaginationButton = styled.button`
     border: 0;
     font-size: 2rem;
-    
+    padding: 3rem;
+    cursor: pointer;
 `;
