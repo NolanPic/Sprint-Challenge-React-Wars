@@ -4,6 +4,10 @@ export const Container = styled.div`
     width: 1000px;
     max-width: 100%;
     margin: 0 auto;
+
+    p {
+        font-size: 1.8rem;
+    }
 `;
 
 export const CardList = styled.div`
