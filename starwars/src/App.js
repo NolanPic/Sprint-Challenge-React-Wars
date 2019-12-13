@@ -49,7 +49,7 @@ const App = () => {
 
     setLoading(true);
 
-    axios.get(paginatedRequest ? paginatedRequest : 'https://swapi.co/api/people/')
+    cachedAxiosGet(paginatedRequest ? paginatedRequest : 'https://swapi.co/api/people/?page=1')
       .then(res => {
         setCharacters(res.data.results);
         setPaginationConfig({
@@ -81,6 +81,70 @@ const App = () => {
       </div>
     </Container>
   );
+}
+
+
+function cachedAxiosGet(url) {
+
+  // grab previous requests
+  let requests = getRequestsFromStorage();
+
+  if(requests) {
+    // if there have been previous requests, see if this request
+    // has already been made
+    let promiseToGetOld = null;
+    requests.forEach(request => {
+      if(request.url === url) {
+        // if this request has already been made, return
+        // a promise with the request body
+        promiseToGetOld = new Promise((resolve) => resolve(request.body));
+      }
+    });
+    if(promiseToGetOld) {
+      return promiseToGetOld;
+    }
+  }
+
+  // this request has not been made yet--continue on to
+  // use axios to make the request
+  const promiseToGetNew = new Promise((resolve, reject) => {
+    axios.get(url)
+      .then(res => {
+        // once the request has been made,
+        // cache it in local storage
+        setRequestInStorage(url, res);
+        resolve(res);
+      })
+      .catch(err => reject(err));
+  });
+
+  return promiseToGetNew;
+}
+
+/**
+ * Gets network requests that have been made from local storage
+ */
+function getRequestsFromStorage() {
+  if(sessionStorage.getItem('requests')) {
+    return JSON.parse(sessionStorage.getItem('requests'));
+  }
+  else {
+    return null;
+  }
+}
+
+/**
+ * Sets a new request url and resulting body in local storage
+ * @param {*} url 
+ * @param {*} body 
+ */
+function setRequestInStorage(url, body) {
+  const requests = getRequestsFromStorage() || [];
+  requests.push({
+    url,
+    body
+  });
+  sessionStorage.setItem('requests', JSON.stringify(requests));
 }
 
 export default App;
