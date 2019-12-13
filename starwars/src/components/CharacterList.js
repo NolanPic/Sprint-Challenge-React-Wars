@@ -1,16 +1,17 @@
 import React from 'react';
 import CharacterCard from './CharacterCard';
+import { CardList } from './styles';
 
 const CharacterList = props => {
 
     const { characters } = props;
 
     return (
-        <div className="character-list">
+        <CardList>
             {characters.map(c => (
                 <CharacterCard key={c.created} character={c} />
             ))}
-        </div>
+        </CardList>
     );
 }
 

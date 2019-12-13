@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import axios from 'axios';
+import { Container } from './components/styles';
 import CharacterList from './components/CharacterList';
 
 const App = () => {
@@ -21,12 +22,15 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <h1 className="Header">React Wars</h1>
-      {characters && (
-        <CharacterList characters={characters} />
-      )}
-    </div>
+    <Container>
+      <div className="App">
+        <h1 className="Header">React Wars</h1>
+        {characters ? (
+          <CharacterList characters={characters} />
+        ) :
+        (<p>Loading...</p>)}
+      </div>
+    </Container>
   );
 }
 
