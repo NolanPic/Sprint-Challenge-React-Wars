@@ -24,3 +24,9 @@ export const Card = styled.div`
     margin-bottom: 4rem;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 `;
+
+export const PaginationButton = styled.div`
+    border: 0;
+    font-size: 2rem;
+    
+`;
